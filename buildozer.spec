@@ -1,31 +1,23 @@
-name: Build APK
+[app]
+title = Akrep1
+package.name = akrep1
+package.domain = org.ozkan
 
-on:
-  push:
-    branches: [ main ]
-  workflow_dispatch:
+source.dir = .
+source.include_exts = py,png,jpg,kv,atlas
+version = 1.0
 
-jobs:
-  build:
-    runs-on: ubuntu-22.04
+# Sadece gerekli olanlar, sürüm sabitleyici ile
+requirements = python3,kivy==2.2.1
 
-    steps:
-      - uses: actions/checkout@v3
+orientation = portrait
+fullscreen = 0
+android.permissions = INTERNET
+android.api = 33
+android.minapi = 21
+android.archs = arm64-v8a, armeabi-v7a
+android.allow_backup = True
 
-      - name: Install dependencies
-        run: |
-          sudo apt update
-          sudo apt install -y git zip unzip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake libffi-dev libssl-dev
-          python3 -m pip install --upgrade pip
-          python3 -m pip install buildozer cython==0.29.33 kivy
-
-      - name: Build with Buildozer
-        run: |
-          yes | buildozer android debug
-
-      - name: Upload APK
-        uses: actions/upload-artifact@v3
-        with:
-          name: Akrep1-Debug-APK
-          path: bin/*.apk
-          
+[buildozer]
+log_level = 2
+warn_on_root = 1
