@@ -10,12 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-
-      - name: Get Date
-        id: get-date
-        run: |
-          echo "date=$(date +'%Y-%m-%d-%H;%M;%S')" >> $GITHUB_OUTPUT
+      - uses: actions/checkout@v4
 
       - name: Build with Buildozer
         uses: ArtemSerebriakov/buildozer-action@v1
@@ -25,7 +20,7 @@ jobs:
           repository_root: .
 
       - name: Upload APK
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Akrep1-Debug-APK
           path: bin/*.apk
